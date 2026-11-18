@@ -102,6 +102,11 @@ Two things stop the Suite's **Mods → Add mod** under Wine:
   to build). It installs a small replacement that extracts zip-format archives and, like the real
   one, refuses entries that would land outside the destination. RAR and 7z archives aren't
   supported: extract those on Linux and import the extracted folder.
+- **Trainers like MenyooSP crash the game.** They find game functions by scanning the exe for
+  byte patterns, and GTAVXR runs its own rebuilt exe, not Rockstar's, so the patterns don't match.
+  MenyooSP 2.4.4 logs `Couldn't find InitVehicleArchetype` and the host logs
+  `LOAD_FAILED … Menyoo.asi error=998`. This isn't Linux-specific. Use GTAVXR's built-in trainer
+  (VR menu → Trainer; it's adapted from Menyoo) instead. It only works while VR is on.
 - **"Reparse point rejected: Z:\home":** the Suite rejects any path that passes through a symlink
   or junction, and Wine reports `Z:\home` as one. Copy mod files into the prefix first, for example
   `drive_c/users/steamuser/Downloads`, and pick them from `C:\users\steamuser\Downloads`.
