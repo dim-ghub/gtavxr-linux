@@ -7,3 +7,5 @@ bin/
 *.log
 # Built tar shim
 tar-shim/tar.exe
+# Downloaded third-party files (06-flatscreen-menyoo.sh)
+downloads/

@@ -29,6 +29,9 @@ Monado's simulated headset was used to confirm VR rendering end to end.
 | `03-get-gtavxr.sh` | Downloads the latest `GTAVXR.exe` to `bin/` and copies it next to `GTA5.exe` |
 | `04-fix-export-dir.sh` | Fixes GTAVXR's startup crash under Wine (see below) |
 | `tar-shim/` | A small `tar.exe` for the prefix, so the Suite can import `.zip` / `.oiv` mods |
+| `launch.sh` | Steam launch option: starts the GTAVXR Suite, or normal GTA V after `flatscreen.sh` |
+| `flatscreen.sh` | Starts normal flatscreen GTA V once (add it to Steam as a non-Steam game) |
+| `06-flatscreen-menyoo.sh` | Installs/uninstalls Script Hook V + MenyooSP for flatscreen GTA V |
 | `run-suite.sh` | Opens the Suite in the prefix without Steam (for install, settings, Fix now) |
 | `steam-launch-options.txt` | Steam launch option that starts the Suite instead of `PlayGTAV.exe` |
 | `monado/` | Testing without a headset, using Monado's simulated headset |
@@ -64,6 +67,26 @@ GTAVXR's own guides cover controls, the VR menu and the built-in trainer:
 
 To go back to normal flatscreen GTA V, clear the launch option. To remove GTAVXR from the game,
 use the Suite's **Settings → GTAVXR in the game → Uninstall**.
+
+## Flatscreen GTA V with Menyoo (optional)
+
+MenyooSP doesn't work inside GTAVXR (see [Importing mods](#importing-mods)), but you can keep a
+normal flatscreen GTA V with Menyoo next to it and launch either from Steam.
+
+1. `./06-flatscreen-menyoo.sh install` downloads [Script Hook V](http://www.dev-c.com/gtav/scripthookv/)
+   (for build 3889) and [MenyooSP](https://github.com/itsjustcurtis/MenyooSP), and copies them
+   into the game folder. `uninstall` removes exactly those files.
+2. Use `launch.sh` as GTA V's launch option instead of `steam-launch-options.txt`:
+   `/path/to/gtavxr-linux/launch.sh %command%`. Launching GTA V still starts the GTAVXR Suite.
+3. In Steam, **Games → Add a Non-Steam Game to My Library → Browse**, pick `flatscreen.sh`, and
+   rename the entry (for example "GTA V Flatscreen"). In its Properties → Compatibility, make sure
+   no Proton version is forced: it's a Linux script.
+4. Launching that entry starts normal GTA V once, with Wine set to load Script Hook V's
+   `dinput8.dll`. Press **F8** in Story Mode to open Menyoo. The next normal launch is VR again.
+
+This works because the GTAVXR Suite moves Script Hook V, ASI loaders and `.asi` files out of the
+game folder for every VR session and puts them back afterwards. When Rockstar updates GTA V,
+Script Hook V needs a matching update (set `SHV_VERSION` and re-run the install).
 
 ## What the fixes are for
 
