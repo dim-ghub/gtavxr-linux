@@ -1,0 +1,8 @@
+{
+    "file_format_version": "1.0.0",
+    "runtime": {
+        "name": "Monado (host, via pressure-vessel)",
+        "library_path": "/run/host/usr/lib/libopenxr_monado.so",
+        "MND_libmonado_path": "/run/host/usr/lib/libmonado.so"
+    }
+}

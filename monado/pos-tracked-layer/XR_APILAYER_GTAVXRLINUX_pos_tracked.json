@@ -1,0 +1,10 @@
+{
+    "file_format_version": "1.0.0",
+    "api_layer": {
+        "name": "XR_APILAYER_GTAVXRLINUX_pos_tracked",
+        "library_path": "./libpos_tracked_layer.so",
+        "api_version": "1.1",
+        "implementation_version": "1",
+        "description": "Test only: report POSITION_TRACKED for Monado's simulated HMD so GTAVXR renders"
+    }
+}

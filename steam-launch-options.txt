@@ -1,0 +1,10 @@
+# GTA V Legacy → Properties → General → Launch Options
+# Swaps Rockstar's PlayGTAV.exe for the GTAVXR Suite while keeping Steam's Proton session
+# (Steam login/DRM, lsteamclient, and the wineopenxr OpenXR runtime registration).
+# Rewrites each argument separately, so the space in "Grand Theft Auto V" survives:
+
+bash -c 'exec "${@/PlayGTAV.exe/GTAVXR.exe}"' -- %command%
+
+# Don't use $(echo %command% | sed ...): it splits the game path at the spaces.
+# Clear the field to go back to normal flatscreen GTA V.
+# For a Proton log (~/steam-271590.log), put PROTON_LOG=1 in front of "bash".

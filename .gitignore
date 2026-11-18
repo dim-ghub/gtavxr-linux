@@ -1,0 +1,7 @@
+# Local copies of game/config files made by the scripts (includes Rockstar's patched exe)
+backup/
+# Downloaded GTAVXR release (03-get-gtavxr.sh fetches it)
+bin/
+# Build output and logs
+*.so
+*.log
