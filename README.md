@@ -28,6 +28,7 @@ Monado's simulated headset was used to confirm VR rendering end to end.
 | `02-prep-prefix.sh` | Backs up the prefix registry to `backup/`, then installs `dotnet48` and `vcrun2022` |
 | `03-get-gtavxr.sh` | Downloads the latest `GTAVXR.exe` to `bin/` and copies it next to `GTA5.exe` |
 | `04-fix-export-dir.sh` | Fixes GTAVXR's startup crash under Wine (see below) |
+| `tar-shim/` | A small `tar.exe` for the prefix, so the Suite can import `.zip` / `.oiv` mods |
 | `run-suite.sh` | Opens the Suite in the prefix without Steam (for install, settings, Fix now) |
 | `steam-launch-options.txt` | Steam launch option that starts the Suite instead of `PlayGTAV.exe` |
 | `monado/` | Testing without a headset, using Monado's simulated headset |
@@ -94,9 +95,16 @@ argument separately.
 
 ### Importing mods
 
-The Suite rejects any file path that passes through a symlink or junction, and Wine reports
-`Z:\home` as one. Copy mod archives into the prefix first (for example
-`drive_c/users/steamuser/Downloads`) and pick them from `C:\users\steamuser\Downloads` in the Suite.
+Two things stop the Suite's **Mods → Add mod** under Wine:
+
+- **"Windows tar.exe not found":** the Suite unpacks every `.zip` / `.oiv` with Windows'
+  built-in `tar.exe`, which Wine doesn't have. Run `tar-shim/install.sh` once (needs Mono's `mcs`
+  to build). It installs a small replacement that extracts zip-format archives and, like the real
+  one, refuses entries that would land outside the destination. RAR and 7z archives aren't
+  supported: extract those on Linux and import the extracted folder.
+- **"Reparse point rejected: Z:\home":** the Suite rejects any path that passes through a symlink
+  or junction, and Wine reports `Z:\home` as one. Copy mod files into the prefix first, for example
+  `drive_c/users/steamuser/Downloads`, and pick them from `C:\users\steamuser\Downloads`.
 
 ## Testing without a headset
 
